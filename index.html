@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baune Festival</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f5f4f0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='350' viewBox='0 0 300 350'%3E%3Cg opacity='0.07'%3E%3Cellipse cx='150' cy='120' rx='8' ry='12' fill='%23333'/%3E%3Cellipse cx='130' cy='105' rx='7' ry='10' fill='%23333'/%3E%3Cellipse cx='170' cy='105' rx='7' ry='10' fill='%23333'/%3E%3Cellipse cx='115' cy='95' rx='8' ry='11' fill='%23333'/%3E%3Cellipse cx='185' cy='95' rx='8' ry='11' fill='%23333'/%3E%3Cellipse cx='100' cy='110' rx='9' ry='12' fill='%23333'/%3E%3Cellipse cx='200' cy='110' rx='9' ry='12' fill='%23333'/%3E%3Cellipse cx='108' cy='128' rx='10' ry='13' fill='%23333'/%3E%3Cellipse cx='192' cy='128' rx='10' ry='13' fill='%23333'/%3E%3Cellipse cx='120' cy='140' rx='11' ry='14' fill='%23333'/%3E%3Cellipse cx='180' cy='140' rx='11' ry='14' fill='%23333'/%3E%3Cellipse cx='140' cy='85' rx='9' ry='12' fill='%23333'/%3E%3Cellipse cx='160' cy='85' rx='9' ry='12' fill='%23333'/%3E%3Cellipse cx='150' cy='75' rx='10' ry='13' fill='%23333'/%3E%3Cellipse cx='135' cy='68' rx='8' ry='10' fill='%23333'/%3E%3Cellipse cx='165' cy='68' rx='8' ry='10' fill='%23333'/%3E%3Cellipse cx='150' cy='60' rx='7' ry='9' fill='%23333'/%3E%3Cellipse cx='163' cy='78' rx='4' ry='5' fill='%234a7c4a'/%3E%3Crect x='147' y='155' width='6' height='60' fill='%23555'/%3E%3Crect x='130' y='190' width='40' height='4' rx='2' fill='%23555'/%3E%3Crect x='135' y='200' width='30' height='3' rx='2' fill='%23555'/%3E%3Crect x='138' y='208' width='24' height='3' rx='2' fill='%23555'/%3E%3Ctext x='150' y='240' text-anchor='middle' font-family='serif' font-size='18' font-weight='bold' letter-spacing='4' fill='%23333'%3EBAUNEh%C3%98J%3C/text%3E%3Ctext x='150' y='258' text-anchor='middle' font-family='serif' font-size='10' letter-spacing='6' fill='%23333'%3EFESTIVAL%3C/text%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 300px 350px;
+            background-attachment: fixed;
+            color: #1a1a1a;
+        }
+
+        /* ===== FADE-IN ANIMATION ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.synlig {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        nav {
+            background-color: #ffffff;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        nav a:hover {
+            color: #5b9bd5;
+        }
+
+        .hero {
+            background-image: url('billeder/hero.png');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .hero h1 {
+            font-size: 100px;
+            color: #ffffff;
+            font-family: 'Bowlby One', sans-serif;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-top: 10px;
+            color: #eeeeee;
+            position: relative;
+            z-index: 1;
+            font-weight: 900;
+            text-shadow: 1px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        section {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 32px;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            font-weight: 600;
+            border-bottom: 2px solid #5b9bd5;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .billeder-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .billede-kort {
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .billede-kort img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 6px;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .billede-kort:hover img {
+            transform: scale(1.03);
+        }
+
+        .billede-kort p {
+            margin-top: 12px;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .program-kort {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+            border-left: 4px solid #5b9bd5;
+        }
+
+        .program-kort h3 {
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .program-kort p {
+            color: #555;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+
+        .mad-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .mad-kort {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .mad-kort img.mad-billede {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .mad-kort h3 {
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .mad-kort p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .mad-kort .sides-item {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .mad-kort .sides-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .mad-kort .sides-item strong {
+            display: block;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .stand-logo {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .stand-logo img {
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .vand-info {
+            margin-top: 20px;
+            padding: 16px 24px;
+            background-color: #f0f6ff;
+            border-radius: 8px;
+            border-left: 4px solid #5b9bd5;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .anmeldelser-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .anmeldelse-kort {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+            font-style: italic;
+            color: #333;
+        }
+
+        .anmeldelse-kort span {
+            display: block;
+            margin-top: 12px;
+            color: #5b9bd5;
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        /* ===== ARTISTGALLERI ===== */
+        .artist-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .artist-kort {
+            position: relative;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        .artist-kort.klikbar {
+            cursor: pointer;
+        }
+
+        .artist-kort.klikbar:hover .artist-overlay {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .artist-kort img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .artist-kort:hover img {
+            transform: scale(1.05);
+        }
+
+        .artist-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.75));
+            padding: 20px 16px 14px;
+            transition: background 0.3s;
+        }
+
+        .artist-overlay h3 {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .artist-overlay .scene-tag {
+            font-size: 11px;
+            color: #ccc;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== POPUP ===== */
+        .popup-baggrund {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-baggrund.aktiv {
+            display: flex;
+        }
+
+        .popup-boks {
+            background: #ffffff;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+        }
+
+        .popup-tekst {
+            padding: 40px;
+        }
+
+        .popup-tekst h2 {
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            border: none;
+            padding: 0;
+            display: block;
+        }
+
+        .popup-tekst .popup-meta {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .popup-tekst p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 14px;
+        }
+
+        .popup-billede {
+            position: relative;
+        }
+
+        .popup-billede img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0 12px 12px 0;
+            display: block;
+        }
+
+        .popup-luk {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #1a1a1a;
+            color: #aaaaaa;
+            padding: 60px 40px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-indhold {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #333;
+        }
+
+        .footer-kolonne h4 {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-kolonne p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #aaaaaa;
+        }
+
+        .footer-kolonne a {
+            color: #aaaaaa;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-kolonne a:hover {
+            color: #5b9bd5;
+        }
+
+        .footer-bund {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#hjem" class="nav-logo">Baune Festival</a>
+        <div class="nav-links">
+            <a href="#hjem">Hjem</a>
+            <a href="#artister">Artister</a>
+            <a href="#program">Program</a>
+            <a href="#mad">Mad</a>
+            <a href="#anmeldelser">Anmeldelser</a>
+        </div>
+    </nav>
+
+    <div class="hero" id="hjem">
+        <h1>Baune Festival</h1>
+        <p>Musik, mad og fællesskab</p>
+        <p>Tirsdag den 12. maj 2026</p>
+    </div>
+
+    <section class="fade-in">
+        <h2>Øjeblikke fra festivalen</h2>
+        <div class="billeder-grid">
+            <div class="billede-kort">
+                <img src="billeder/foto1.png" alt="Festival billede 1">
+            </div>
+            <div class="billede-kort">
+                <img src="billeder/foto2.JPG" alt="Festival billede 2">
+            </div>
+            <div class="billede-kort">
+                <img src="billeder/foto3.jpeg" alt="Festival billede 3">
+            </div>
+            <div class="billede-kort">
+                <img src="billeder/foto4.png" alt="Festival billede 4">
+            </div>
+            <div class="billede-kort">
+                <img src="billeder/foto5.JPG" alt="Festival billede 5">
+            </div>
+            <div class="billede-kort">
+                <img src="billeder/foto6.JPG" alt="Festival billede 6">
+            </div>
+        </div>
+    </section>
+
+    <section id="artister" class="fade-in">
+        <h2>Artister</h2>
+        <div class="artist-grid">
+
+            <div class="artist-kort">
+                <img src="billeder/artist-blinddecade.png" alt="Blind Decade">
+                <div class="artist-overlay">
+                    <div class="scene-tag">Salen · 20:00</div>
+                    <h3>Blind Decade</h3>
+                </div>
+            </div>
+
+            <div class="artist-kort">
+                <img src="billeder/artist-gefion.png" alt="Gefion Band">
+                <div class="artist-overlay">
+                    <div class="scene-tag">Salen · 21:00</div>
+                    <h3>Gefion Band</h3>
+                </div>
+            </div>
+
+            <div class="artist-kort klikbar" onclick="åbnPopup('standart')">
+                <img src="billeder/artist-standart.png" alt="Standart">
+                <div class="artist-overlay">
+                    <div class="scene-tag">Salen · 21:45</div>
+                    <h3>Standart</h3>
+                </div>
+            </div>
+
+            <div class="artist-kort">
+                <img src="billeder/artist-djpaul.JPG" alt="DJ Paul">
+                <div class="artist-overlay">
+                    <div class="scene-tag">Scenen · 14:00</div>
+                    <h3>DJ Paul</h3>
+                </div>
+            </div>
+
+            <div class="artist-kort">
+                <img src="billeder/artist-marto.jfif" alt="Marto">
+                <div class="artist-overlay">
+                    <div class="scene-tag">Scenen · 16:30</div>
+                    <h3>Marto</h3>
+                </div>
+            </div>
+
+            <div class="artist-kort">
+                <img src="billeder/artist-baunehoj.jpg" alt="Baunehøj">
+                <div class="artist-overlay">
+                    <div class="scene-tag">Scenen · 17:15</div>
+                    <h3>Baunehøj</h3>
+                </div>
+            </div>
+
+            <div class="artist-kort klikbar" onclick="åbnPopup('ribe')">
+                <img src="billeder/artist-ribe.png" alt="Ribe Underground x DJ Hardcore Bajer">
+                <div class="artist-overlay">
+                    <div class="scene-tag">Rooftop · 18:00</div>
+                    <h3>Ribe Underground x DJ Hardcore Bajer</h3>
+                </div>
+            </div>
+
+            <div class="artist-kort">
+                <img src="billeder/artist-rytmedrengene.PNG" alt="Rytmedrengene">
+                <div class="artist-overlay">
+                    <div class="scene-tag">Scenen · 14:30</div>
+                    <h3>Rytmedrengene</h3>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="program" class="fade-in">
+        <h2>Program</h2>
+        <div class="program-grid">
+            <div class="program-kort">
+                <h3>Salen</h3>
+                <p>20:00 – Blind Decade</p>
+                <p>21:00 – Gefion Band</p>
+                <p>21:45 – Standart</p>
+            </div>
+            <div class="program-kort">
+                <h3>Scenen</h3>
+                <p>14:00 – DJ Paul</p>
+                <p>14:30 – Rytmedrengene</p>
+                <p>16:30 – Marto</p>
+                <p>17:15 – Baunehøj</p>
+            </div>
+            <div class="program-kort">
+                <h3>Rooftop</h3>
+                <p>18:00 – Ribe Underground x DJ Hardcore Bajer</p>
+            </div>
+            <div class="program-kort">
+                <h3>Workshops på plænen</h3>
+                <p>14:00 – Dåsekast</p>
+                <p>14:00 – Tøj byt</p>
+                <p>14:00 – Henna med Guruerne</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="mad" class="fade-in">
+        <h2>Mad & Drikke</h2>
+        <div class="mad-grid">
+            <div class="mad-kort">
+                <img class="mad-billede" src="billeder/mad1.png" alt="Bues Bao Buns">
+                <h3>Bues Bao Buns</h3>
+                <p>Luftige bao buns fyldt med saftig, marineret kylling vendt i en lækker asiatisk marinade med masser af smag. Serveret med frisk salat og sprøde grøntsager, som giver den perfekte kombination af sødt, salt og friskhed.</p>
+                <br>
+                <p>Den vegetariske version er lavet med østershatte, som suger den asiatiske marinade til sig og giver en fyldig og lækker smag.</p>
+                <div class="stand-logo">
+                    <img src="billeder/bues-logo.png" alt="Bues Bao Buns logo">
+                </div>
+            </div>
+            <div class="mad-kort">
+                <img class="mad-billede" src="billeder/mad2.JPG" alt="Sides">
+                <h3>Sides</h3>
+                <div class="sides-item">
+                    <strong>Dango</strong>
+                    <p>Japanske små risdumplings lavet af rismel og vand, serveret med sød anko lavet på røde bønner samt en lækker mitarashi sauce med soja og sukker.</p>
+                </div>
+                <div class="sides-item">
+                    <strong>Churros Frozen Yogurt</strong>
+                    <p>Cremet frozen yogurt toppet med sprøde churros for den perfekte kombination af koldt og crunchy.</p>
+                </div>
+                <div class="sides-item">
+                    <strong>Elote</strong>
+                    <p>Grillet majs toppet med mayo, ost, lime og krydderier, inspireret af den populære mexicanske streetfood-ret.</p>
+                </div>
+                <div class="sides-item">
+                    <strong>Nachos</strong>
+                    <p>Sprøde tortilla chips serveret med smeltet ost og salsa.</p>
+                </div>
+                <div class="sides-item">
+                    <strong>Pomfritter</strong>
+                    <p>Sprøde gyldne pomfritter serveret med ketchup og mayo.</p>
+                </div>
+            </div>
+        </div>
+        <div class="vand-info">
+            Gratis refill vand er tilgængeligt hele dagen – bare find en af vores vandstationer på pladsen!
+        </div>
+    </section>
+
+    <section id="anmeldelser" class="fade-in">
+        <h2>Hvad sagde folk?</h2>
+        <div class="anmeldelser-grid">
+            <div class="anmeldelse-kort">
+                <p>"Det var en helt fantastisk festival, det var den hyggeligste jeg nogensinde har været til"</p>
+                <span>– Asbjørn Damgaard</span>
+            </div>
+            <div class="anmeldelse-kort">
+                <p>"Gud velsignet min tunge, det var simpelthen så god mad!"</p>
+                <span>– Bue bodulv</span>
+            </div>
+            <div class="anmeldelse-kort">
+                <p>"En rigtig hyggelig festival med god stemning, glade mennesker og masser af fællesskab!"</p>
+                <span>– Aksel Stanhardt</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- POPUP: STANDART -->
+    <div class="popup-baggrund" id="popup-standart">
+        <div class="popup-boks">
+            <div class="popup-tekst">
+                <h2>Standart</h2>
+                <div class="popup-meta">1. juni 2026 · Anmeldelse af Gunnar K</div>
+                <p>Bare standard leverede en virkelig fed koncert! Der var lysshow og show i en general forstand. Publikum blev smeltet sammen med performerne som en toast med asparges hvor alle var brød og fyld. Og vi gik igennem koncerten sammen, man kan næsten sige, vi blev til koncerten, standard fik os nemlig til at synge af hjertes lyst.</p>
+                <p>Det musikalske indslag var ikke lige mig men jeg er sikker på at det kan vokse på mig. Jeg havde en fornemmelse af at bandet fokuserer lige så meget på performance som på musikken lidt ligesom en kat i brunst og det kan jeg godt forstå. Der var fed synth og hårde trommer en form for "syre pop/rock" som de selv beskrev det.</p>
+                <p>Der var to forsangere i bandet og det gjorde noget virkelig fedt ved stemningen, de dansede rundt og gik ud til os, hvilket fik os til at føle os frie og velkomne til at danse og være på den måde vi har lyst til. De prøver at slippe os fri fra normer og tanker og lader os gå amok på vores helt egne særlige og smukke måder.</p>
+                <p>Og det syntes jeg gør Standart til Standart. Jeg vil helt klart anbefale dette band.</p>
+            </div>
+            <div class="popup-billede">
+                <button class="popup-luk" onclick="lukPopup('standart')">✕</button>
+                <img src="billeder/artist-standart.png" alt="Standart">
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP: RIBE UNDERGROUND -->
+    <div class="popup-baggrund" id="popup-ribe">
+        <div class="popup-boks">
+            <div class="popup-tekst">
+                <h2>Ribe Underground x DJ Hardcore Bajer</h2>
+                <div class="popup-meta">1. juni 2026 · Anmeldelse af Gunnar K</div>
+                <p>Aldrig har jeg været til et musikalsk gilde med så megen vildelse, uskikkelig præcision og rå brutalitet. Jeg stod ganske forfærdet ved det lydlige optrin, som bestod af dunkende dakkedans og smadre-techno, men dog formåede dette band at få en sælsom stemning frem, en sand rasen, og det kunne skues iblandt folkehavet.</p>
+                <p>Flokken stod højt hævet på en tagterrasse og skuede tre meter ned imod os! Der blev sprunget, trampet og danset i vild ekstase, og folk fór omkring som besatte, hvilket jeg må finde højst imponerende, på trods af den betydelige afstand mellem spillemændene og publikum.</p>
+                <p>Kommer man alene for musikkens skyld, da havde jeg ej nærmet mig disse mennesker. Men søger du at give den gas og mærke hidtil ukendte og vilde sider af dit eget sind, da bør du opsøge Ribe Underground.</p>
+            </div>
+            <div class="popup-billede">
+                <button class="popup-luk" onclick="lukPopup('ribe')">✕</button>
+                <img src="billeder/artist-ribe.png" alt="Ribe Underground">
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-indhold">
+            <div class="footer-kolonne">
+                <h4>Baune Festival</h4>
+                <p>En festival skabt af og for elever på Baunehøj Efterskole. Musik, mad og fællesskab på en enkelt uforglemmelig dag.</p>
+            </div>
+            <div class="footer-kolonne">
+                <h4>Kontakt</h4>
+                <p>Baunehøj Efterskole</p>
+                <p>Runegaards Allé 30</p>
+                <p>3630 Jægerspris, Danmark</p>
+                <br>
+                <a href="tel:47530023">📞 47 53 00 23</a>
+                <a href="mailto:be@baunehoej.dk">✉ be@baunehoej.dk</a>
+            </div>
+            <div class="footer-kolonne">
+                <h4>Navigation</h4>
+                <a href="#hjem">Hjem</a>
+                <a href="#artister">Artister</a>
+                <a href="#program">Program</a>
+                <a href="#mad">Mad</a>
+                <a href="#anmeldelser">Anmeldelser</a>
+            </div>
+        </div>
+        <div class="footer-bund">
+            <span>© 2026 Baune Festival · Baunehøj Efterskole</span>
+            <span>Hjemmeside bygget af Silas Zillmann-Lethan</span>
+        </div>
+    </footer>
+
+    <script>
+        function åbnPopup(id) {
+            document.getElementById('popup-' + id).classList.add('aktiv');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function lukPopup(id) {
+            document.getElementById('popup-' + id).classList.remove('aktiv');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.popup-baggrund').forEach(function(popup) {
+            popup.addEventListener('click', function(e) {
+                if (e.target === popup) {
+                    popup.classList.remove('aktiv');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Fade-in animation
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('synlig');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(function(el) {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
